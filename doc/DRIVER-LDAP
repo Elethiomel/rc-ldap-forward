@@ -1,0 +1,69 @@
+DRIVER-SQL
+
+This driver is a LDAP backend storage.
+
+Configuration settings :
+
+- forward_ldap_host : server hostname
+- forward_ldap_port : server port
+- forward_ldap_starttls : flag to use TLS transactions
+- forward_ldap_version : LDAP protocol to use
+- forward_ldap_basedn : base DN
+- forward_ldap_binddn : bind DN
+- forward_ldap_bindpw : bind password
+- forward_ldap_attr_email : attribute name to map email address
+- forward_ldap_attr_emaillocal : attribute name to map email local part
+- forward_ldap_attr_emaildomain : attribute name to map email domain
+- forward_ldap_attr_forwardenable : attribute name to map forward enable 
+  flag
+- forward_ldap_attr_forwardenable_value_enabled : attribute value for enabled
+  forward flag
+- forward_ldap_attr_forwardenable_value_disabled : attribute value for
+  disabled forward flag
+- forward_ldap_attr_forwardstart : attribute name to map forward start
+- forward_ldap_attr_forwardend : attribute name to map forward end
+- forward_ldap_attr_forwardsubject : attribute name to map forward subject
+- forward_ldap_attr_forwardmessage : attribute name to map forward message
+- forward_ldap_attr_forwardkeepcopyininbox : attribute name to map forward
+  keep copy in inbox flag
+- forward_ldap_attr_forwardkeepcopyininbox_value_enabled : attribute value
+  for enabled forward keep copy in inbox flag
+- forward_ldap_attr_forwardkeepcopyininbox_value_disabled : attribute value
+  for disabled forward keep copy in inbox flag
+- forward_ldap_attr_forwardforwarder : attribute name to map forward forward
+  address
+- forward_ldap_search_base : search base for reading data.
+- forward_ldap_search_filter : search filter for reading data.
+- forward_ldap_search_attrs : array of attributes for reading data.
+- forward_ldap_modify_dns : array of DN to use for writing data.
+- forward_ldap_modify_ops : array of operations for writing data.
+
+Configuration syntax :
+
+The driver replaces these predefined keys by the real value :
+
+* for forward_ldap_basedn, forward_ldap_binddn options :
+- %username : the user mail or username.
+- %email : the email of the user.
+- %email_local : the email local part if username is a full email. 
+- %email_domain : the email domain if the username is a full email.
+
+* for forward_ldap_bindpw options :
+- %username : the user mail or username.
+- %password : the user password.
+- %email : the email of the user.
+- %email_local : the email local part if username is a full email. 
+- %email_domain : the email domain if the username is a full email.
+
+* for search (read) and modify (write) operations :
+- %username : the user mail or username (read).
+- %email : the email of the user (read/write).
+- %email_local : the email local part if username is a full email (read/write). 
+- %email_domain : the email domain if the username is a full email (read/write).
+- %forward_enable : boolean, flag to enable disable the forward message
+  (read/write).
+- %forward_start : integer, timestamp/date of the forward start (read/write)
+- %forward_end : integer, timestamp/date of the forward end (read/write)
+- %forward_subject : string, subject of the forward message (read/write).
+- %forward_message : string, message of the forward (read/write).
+- %forward_forwarder : string, forward address of the forward (read/write).

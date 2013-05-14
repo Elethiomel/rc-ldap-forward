@@ -1,0 +1,99 @@
+DRIVER-API
+
+A driver is a backend storage which is used to read and write the data used by
+the plugin.
+
+The current driver is set by the option 'forward_driver' defined in the plugin
+configuration file 'config.inc.php'. A driver can have his own settings in the
+configuration file.
+
+Coding a driver is very easy. His source filename must correspond to his name.
+Two functions need to be implemented : forward_read and forward_write. The
+first read data and the second write them.
+
+API :
+
+- forward_read(array &$data)
+
+     This function reads the data and store them in the array given in
+     argument.
+ 
+- forward_write(array &$data)
+
+     This function writes the data from the array given in argument.
+     
+     Each function must return a status code which can be :
+     - PLUGIN_SUCCESS : success status.
+     - PLUGIN_ERROR_DEFAULT : status for generic error.
+     - PLUGIN_ERROR_CONNECT : status for connection error.
+     - PLUGIN_ERROR_PROCESS : status for processing error.
+
+     The array of data contains values with specific keys. Each value can be
+     get and/or set :
+     - username : string, username or email (get).
+     - email : string, email of the user if username is a full email (get/set).
+     - email_local : string, email local part if username is a full email (get/set).
+     - email_domain : string, email domain if username is a full email (get/set).
+     - forward_enable : boolean, flag to enable/disable the forward message
+       (get/set).
+     - forward_start : integer, timestamp/date of the forward start (get/set)
+     - forward_end : integer, timestamp/date of the forward end (get/set)
+     - forward_subject : string, subject of the forward message (get/set).
+     - forward_message : string, message of the forward (get/set).
+     - forward_keepcopyininbox, boolean, flag to enable/disable the forward keep
+       copy in inbox flag (get/set).
+     - forward_forwarder : string, forward address of the forward (get/set).
+
+
+SAMPLE CODE :
+
+This following code is a sample driver which do nothing.
+
+/*
+ * A sample driver which do nothing.
+ *
+ * /lib/drivers/nothing.php
+ *
+ */
+
+/*
+ * Reads data.
+ *
+ * @param $data array the array of data to set/get.
+ *
+ * @return integer the status code.
+ */
+function forward_read(array &$data)
+{
+    // get a driver option
+    $rcmail = rcmail::get_instance();
+    $driver_option = $rcmail->config->get('forward_myoption');
+
+    // get an input data
+    $email = $data['user_username'];
+
+    /*
+     * driver read all needed data and store them in $data (output values)
+     */
+
+    return PLUGIN_SUCCESS;
+}
+
+/*
+ * Reads data.
+ *
+ * @param $data array the array of data to set/get.
+ *
+ * @return integer the status code.
+ */  
+function forward_write(array &$data) 
+{      
+    // get the user forward message
+    $msg = $data['forward_message'];
+
+    /*
+     * driver save the data from $data (input values)
+     */
+
+   return PLUGIN_SUCCESS;
+}
