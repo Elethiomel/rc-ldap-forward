@@ -26,13 +26,22 @@ Example forward.ldap file
 -------------------------
 
 server_host         = ldaps://ldap.foo.bar.com
+
 server_port         = 636
+
 search_base         = ou=People,dc=cs,dc=tcd,dc=ie
+
 query_filter        = (&(|(uid=%u)(primaryAlias=%u)(otherEmailAlias=%u))(forwardingAddress=*))
+
 result_attribute    = forwardingAddress
+
 bind_dn             = cn=bind,ou=People,dc=foo,dc=bar,dc=com
+
 bind_pw             = xxxxxxxxx
+
 version             = 3
+
 tls_ca_cert_file    = /etc/certs/certificate_chain.pem
+
 tls_require_cert    = yes
 
