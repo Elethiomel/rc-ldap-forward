@@ -25,9 +25,6 @@ alias_maps = $alias_database,
 Example forward.ldap file 
 -------------------------
 
-# LDAP map for forwarding mail for current users,  rather than locally
-# delivering and re-injecting it.
-# See ldap_table(5) for details.
 server_host         = ldaps://ldap.foo.bar.com
 server_port         = 636
 search_base         = ou=People,dc=cs,dc=tcd,dc=ie
