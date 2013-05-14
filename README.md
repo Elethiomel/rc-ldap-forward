@@ -29,7 +29,7 @@ server_host         = ldaps://ldap.foo.bar.com
 
 server_port         = 636
 
-search_base         = ou=People,dc=cs,dc=tcd,dc=ie
+search_base         = ou=People,dc=foo,dc=bar,dc=com
 
 query_filter        = (&(|(uid=%u)(primaryAlias=%u)(otherEmailAlias=%u))(forwardingAddress=*))
 
